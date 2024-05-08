@@ -28,6 +28,7 @@ if is_torch2_available():
     from pulid.attention_processor import IDAttnProcessor2_0 as IDAttnProcessor
 else:
     from pulid.attention_processor import AttnProcessor, IDAttnProcessor
+import os
 
 
 class PuLIDPipeline:
