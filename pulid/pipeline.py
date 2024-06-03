@@ -91,9 +91,18 @@ class PuLIDPipeline:
         if not os.path.exists('/stable-diffusion-cache/models/insightface'):
             snapshot_download('DIAMONIK7777/antelopev2', local_dir='models/antelopev2')
             root = '.'
-        self.app = FaceAnalysis(
-            name='antelopev2', root=root, providers=['CUDAExecutionProvider', 'CPUExecutionProvider']
-        )
+            self.app = FaceAnalysis(
+                name='antelopev2', root=root, providers=['CUDAExecutionProvider', 'CPUExecutionProvider']
+            )
+        else:
+            while True:
+                try:
+                    self.app = FaceAnalysis(
+                        name='antelopev2', root=root, providers=['CUDAExecutionProvider', 'CPUExecutionProvider']
+                    )
+                    break
+                except:
+                    continue
         self.app.prepare(ctx_id=0, det_size=(640, 640))
         self.handler_ante = insightface.model_zoo.get_model('models/antelopev2/glintr100.onnx')
         self.handler_ante.prepare(ctx_id=0)
