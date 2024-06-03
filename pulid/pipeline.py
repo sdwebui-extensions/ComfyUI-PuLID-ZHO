@@ -104,7 +104,7 @@ class PuLIDPipeline:
                 except:
                     continue
         self.app.prepare(ctx_id=0, det_size=(640, 640))
-        self.handler_ante = insightface.model_zoo.get_model('models/antelopev2/glintr100.onnx')
+        self.handler_ante = insightface.model_zoo.get_model(os.path.join(root, 'models/antelopev2/glintr100.onnx'))
         self.handler_ante.prepare(ctx_id=0)
 
         gc.collect()
