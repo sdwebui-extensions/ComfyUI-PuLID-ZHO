@@ -11,7 +11,13 @@ from pulid.utils import resize_numpy_image_long, seed_everything
 
 torch.set_grad_enabled(False)
 
-pipeline = PuLIDPipeline()
+pipeline = None
+
+def get_pipeline():
+    global pipeline
+    if pipeline is None:
+        pipeline = PuLIDPipeline()
+    return pipeline
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -54,6 +60,7 @@ class PuLID_Zho:
     CATEGORY = "🪐PuLID"
                        
     def generate_image(self, face_image, positive, negative, width, height, id_scale, mode, id_mix, steps, cfg, seed, supp_images=None):
+        pipeline = get_pipeline()
 
         if mode == 'fidelity':
             attention.NUM_ZERO = 8
