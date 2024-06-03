@@ -87,9 +87,12 @@ class PuLIDPipeline:
         self.eva_transform_mean = eva_transform_mean
         self.eva_transform_std = eva_transform_std
         # antelopev2
-        snapshot_download('DIAMONIK7777/antelopev2', local_dir='models/antelopev2')
+        root = '/stable-diffusion-cache/models/insightface'
+        if not os.path.exists('/stable-diffusion-cache/models/insightface'):
+            snapshot_download('DIAMONIK7777/antelopev2', local_dir='models/antelopev2')
+            root = '.'
         self.app = FaceAnalysis(
-            name='antelopev2', root='.', providers=['CUDAExecutionProvider', 'CPUExecutionProvider']
+            name='antelopev2', root=root, providers=['CUDAExecutionProvider', 'CPUExecutionProvider']
         )
         self.app.prepare(ctx_id=0, det_size=(640, 640))
         self.handler_ante = insightface.model_zoo.get_model('models/antelopev2/glintr100.onnx')
